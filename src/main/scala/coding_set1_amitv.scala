@@ -40,7 +40,6 @@ object coding_set1_amitv {
 //    //    finaldf.printSchema()
 
     //   2) Sales Performance based on total sales.
-
     val sales = List(
       ("karthik", 60000),
       ("neha", 48000),
@@ -64,7 +63,7 @@ object coding_set1_amitv {
 //    )
 //    perfdf.show()
 
-//    3)
+//    3) Project allocation and workload analysis
     val workload = List(
       ("karthik", "ProjectA", 120),
       ("karthik", "ProjectB", 100),
@@ -129,14 +128,14 @@ object coding_set1_amitv {
             ("nishad", 25)
         ).toDF("name", "age")
 
-    val custdf = customers.select(initcap(col("name")).alias("name"), col("age")
-      , when(col("age") < 25, "Youth")
-        .when(col("age") between(25, 45), "Adult")
-        .otherwise("Senior").alias("AgeStatus")
-    )
-    val custcntdf = custdf.groupBy(col("AgeStatus")).count()
-    custcntdf.show()
-    custdf.show()
+//    val custdf = customers.select(initcap(col("name")).alias("name"), col("age")
+//      , when(col("age") < 25, "Youth")
+//        .when(col("age") between(25, 45), "Adult")
+//        .otherwise("Senior").alias("AgeStatus")
+//    )
+//    val custcntdf = custdf.groupBy(col("AgeStatus")).count()
+//    custcntdf.show()
+//    custdf.show()
 
 //    6) Vehicle Mileage
     val vehicles = List(
@@ -152,11 +151,72 @@ object coding_set1_amitv {
       ("CarJ", 16)
     ).toDF("vehicle_name", "mileage")
 
-    val vehdf = vehicles.select(col("vehicle_name"), col("mileage")
-      , when(col("mileage") > 25, "High Efficiency")
-        .when(col("mileage") between(15, 25), "Moderate Efficiency")
-        .otherwise("Low Efficiency").alias("MileageStatus")
+//    val vehdf = vehicles.select(col("vehicle_name"), col("mileage")
+//      , when(col("mileage") > 25, "High Efficiency")
+//        .when(col("mileage") between(15, 25), "Moderate Efficiency")
+//        .otherwise("Low Efficiency").alias("MileageStatus")
+//    )
+
+//    7) student score
+    val students = List(
+      ("karthik", 95),
+      ("neha", 82),
+      ("priya", 74),
+      ("mohan", 91),
+      ("ajay", 67),
+      ("vijay", 80),
+      ("veer", 85),
+      ("aatish", 72),
+      ("animesh", 90),
+      ("nishad", 60)
+    ).toDF("name", "score")
+
+//    val stdf = students.select(col("name"),col("score"),
+//      when(col("score")>=90,"Excellent")
+//        .when(col("score") between(75,89),"Good")
+//        .otherwise("Needs Improvement").alias("Grade")
+//    )
+//    val stcntdf = stdf.groupBy(col("Grade")).count()
+//    stdf.show()
+//    stcntdf.show()
+
+//    8) product inventory check
+      val inventory = List(
+        ("ProductA", 120),
+        ("ProductB", 95),
+        ("ProductC", 45),
+        ("ProductD", 200),
+        ("ProductE", 75),
+        ("ProductF", 30),
+        ("ProductG", 85),
+        ("ProductH", 100),
+        ("ProductI", 60),
+        ("ProductJ", 20)
+      ).toDF("product_name", "stock_quantity")
+
+    val invdf = inventory.select(col("product_name"), col("stock_quantity"),
+      when(col("stock_quantity") > 100, "OverStocked")
+        .when(col("stock_quantity") between(50, 100), "Normal")
+        .otherwise("Low Stock").alias("StockStatus")
     )
+    val invcntdf = invdf.groupBy(col("StockStatus")).count()
+    invcntdf.show()
+    invdf.show()
+
+//    10) employee bonus calculation based on performance and dept.
+    val empdept = List(
+      ("karthik", "Sales", 85),
+      ("neha", "Marketing", 78),
+      ("priya", "IT", 90),
+      ("mohan", "Finance", 65),
+      ("ajay", "Sales", 55),
+      ("vijay", "Marketing", 82),
+      ("veer", "HR", 72),
+      ("aatish", "Sales", 88),
+      ("animesh", "Finance", 95),
+      ("nishad", "IT", 60)
+    ).toDF("name", "department", "performance_score")
+
 
   }
 }
